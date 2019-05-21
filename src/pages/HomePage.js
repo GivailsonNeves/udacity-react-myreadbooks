@@ -4,8 +4,11 @@ import BookShelf from '../components/BookShelf';
 import PropTypes from 'prop-types';
 
 class HomePage extends Component {
+
     render() {
         const {books} = this.props;
+        const {bookShelfChange} = this.props;
+
         return(
             <div className="list-books">
                 <div className="list-books-title">
@@ -15,9 +18,18 @@ class HomePage extends Component {
                 {
                     (books && books.length) ?
                     <div>
-                        <BookShelf title='Currently Reading' books={books.filter(b => b.shelf == 'currentlyReading')}/>
-                        <BookShelf title='Want to Read' books={books.filter(b => b.shelf == 'wantToRead')}/>
-                        <BookShelf title='Read' books={books.filter(b => b.shelf == 'read')}/>>
+                        <BookShelf
+                            bookChanged={bookShelfChange}
+                            title='Currently Reading' 
+                            books={books.filter(b => b.shelf == 'currentlyReading')}/>
+                        <BookShelf 
+                            bookChanged={bookShelfChange}
+                            title='Want to Read' 
+                            books={books.filter(b => b.shelf == 'wantToRead')}/>
+                        <BookShelf 
+                            bookChanged={bookShelfChange}
+                            title='Read' 
+                            books={books.filter(b => b.shelf == 'read')}/>>
                     </div>
                     :
                     <div>
@@ -34,7 +46,8 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    bookShelfChange: PropTypes.func.isRequired,
 }
 
 export default HomePage;
